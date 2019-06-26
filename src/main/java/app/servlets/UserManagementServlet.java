@@ -21,15 +21,6 @@ public class UserManagementServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String id = req.getParameter("id");
-        if(!(id == null)){
-            try {
-                dbService.deleteUser(id);
-            } catch (DBException e) {
-                e.printStackTrace();
-            }
-        }
-
         List<User> users = null;
         try {
             users = dbService.getUsers();

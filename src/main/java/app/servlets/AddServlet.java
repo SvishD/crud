@@ -13,7 +13,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/add", name = "addServlet")
 public class AddServlet extends HttpServlet {
 
-    DBService dbService = DBService.getInstance();
+    private DBService dbService = DBService.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,7 +35,7 @@ public class AddServlet extends HttpServlet {
 
         resp.setContentType("text/html;charset=utf-8");
         resp.setStatus(HttpServletResponse.SC_OK);
-        resp.sendRedirect("/CRUD_war_exploded/users");
+        resp.sendRedirect("/users");
 
 
     }

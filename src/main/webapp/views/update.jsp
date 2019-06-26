@@ -1,7 +1,4 @@
-<%@ page import="java.util.List" %>
-<%@ page import="app.model.User" %>
-<%@ page import="app.service.DBService" %>
-<%@ page import="app.service.DBException" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -80,31 +77,26 @@
             <div  class="update-user">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form method="post" action="/CRUD_war_exploded/update">
+                        <form method="post" action="./update">
 
                             <h2 class="modal-title">Edit <b>User</b> </h2>
 
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label>Name</label>
-
-                                    <%User user = (User)request.getAttribute("user");%>
-
-                                    <input type="text" name="name" class="form-control" value="<%=user.getName()%>" required>
-
+                                    <input type="text" name="name" class="form-control" value="<c:out value="${user.name}"/>" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Login</label>
-                                    <input type="text" name="login" class="form-control" value="<%=user.getLogin()%>" required>
+                                    <input type="text" name="login" class="form-control" value="<c:out value="${user.login}"/>" required>
                                 </div>
-
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="text" name="password" class="form-control" value="<%=user.getPassword()%>" required>
+                                    <input type="text" name="password" class="form-control" value="<c:out value="${user.password}"/>" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <a class="btn btn-default" href="/CRUD_war_exploded/users">Cancel</a>
+                                <a class="btn btn-default" href="./users">Cancel</a>
                                 <input type="submit" class="btn btn-info" value="Save">
                             </div>
                         </form>

@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/update", name = "updateServlet")
 public class UpdateServlet extends HttpServlet {
 
-    DBService dbService = DBService.getInstance();
+    private DBService dbService = DBService.getInstance();
     String id;
 
     @Override
@@ -55,7 +55,7 @@ public class UpdateServlet extends HttpServlet {
 
         resp.setContentType("text/html;charset=utf-8");
         resp.setStatus(HttpServletResponse.SC_OK);
-        resp.sendRedirect("/CRUD_war_exploded/users");
+        resp.sendRedirect("/users");
 
     }
 }

@@ -1,8 +1,4 @@
-<%@ page import="java.util.List" %>
-<%@ page import="app.model.User" %>
-<%@ page import="app.service.DBException" %>
-<%@ page import="app.service.DBService" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +30,6 @@
         }
 
         .table-title {
-            padding-bottom: 15px;
             background: #435d7d;
             color: #fff;
             padding: 16px 30px;
@@ -58,7 +53,6 @@
             border: none;
             min-width: 50px;
             border-radius: 2px;
-            border: none;
             outline: none !important;
             margin-left: 10px;
         }
@@ -136,45 +130,6 @@
             border-radius: 50%;
             vertical-align: middle;
             margin-right: 10px;
-        }
-
-        .pagination {
-            float: right;
-            margin: 0 0 5px;
-        }
-
-        .pagination li a {
-            border: none;
-            font-size: 13px;
-            min-width: 30px;
-            min-height: 30px;
-            color: #999;
-            margin: 0 2px;
-            line-height: 30px;
-            border-radius: 2px !important;
-            text-align: center;
-            padding: 0 6px;
-        }
-
-        .pagination li a:hover {
-            color: #666;
-        }
-
-        .pagination li.active a, .pagination li.active a.page-link {
-            background: #03A9F4;
-        }
-
-        .pagination li.active a:hover {
-            background: #0397d6;
-        }
-
-        .pagination li.disabled i {
-            color: #ccc;
-        }
-
-        .pagination li i {
-            font-size: 16px;
-            padding-top: 6px
         }
 
         .hint-text {
@@ -259,33 +214,19 @@
             </thead>
             <tbody>
 
-            <%
+            <c:forEach items="${users}" var="user">
+                <tr>
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.login}</td>
+                    <td>${user.password}</td>
+                    <td>
+                        <a href="/update?id=${user.id}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="/users?id=${user.id}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    </td>
 
-
-                List<User> users = (ArrayList<User>)request.getAttribute("users");
-
-                if (users != null ) {
-                    for (User user : users) {
-                        out.println("<tr>");
-
-                            out.println("<td>" + user.getId() + "</td>");
-                            out.println("<td>" + user.getName() + "</td>");
-                            out.println("<td>" + user.getLogin() + "</td>");
-                            out.println("<td>" + user.getPassword() + "</td>");
-                            out.println("<td>\n" +
-                                    "                    <a href=\"/CRUD_war_exploded/update?id="+user.getId()+"\"  class=\"edit\" data-toggle=\"modal\"><i class=\"material-icons\"\n" +
-                                    "                                                                                     data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>\n" +
-                                    "                    <a href=\"/CRUD_war_exploded/users?id="+user.getId()+"\" class=\"delete\" data-toggle=\"modal\"><i class=\"material-icons\"\n" +
-                                    "                                                                                         data-toggle=\"tooltip\"\n" +
-                                    "                                                                                         title=\"Delete\">&#xE872;</i></a>\n" +
-                                    "                </td>");
-
-                        out.println("</tr>");
-                    }
-                }
-            %>
-
-
+                </tr>
+            </c:forEach>
 
 
             </tbody>
