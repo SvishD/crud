@@ -1,7 +1,8 @@
 package app.servlets;
 
-import app.service.DBException;
-import app.service.DBService;
+import app.service.UserException;
+import app.service.UserService;
+import app.service.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +14,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/add", name = "addServlet")
 public class AddServlet extends HttpServlet {
 
-    private DBService dbService = DBService.getInstance();
+    private UserService userService = UserServiceImpl.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,8 +28,8 @@ public class AddServlet extends HttpServlet {
         }
 
         try {
-            dbService.addUser(name,login,pass);
-        } catch (DBException e) {
+            userService.addUser(name,login,pass);
+        } catch (UserException e) {
             e.printStackTrace();
         }
 

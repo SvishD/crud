@@ -1,7 +1,8 @@
 package app.servlets;
 
-import app.service.DBException;
-import app.service.DBService;
+import app.service.UserException;
+import app.service.UserService;
+import app.service.UserServiceImpl;
 import app.model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -16,15 +17,15 @@ import java.util.List;
 @WebServlet(urlPatterns = "/users", name = "userManagementServlet")
 public class UserManagementServlet extends HttpServlet {
 
-    private DBService dbService = DBService.getInstance();
+    private UserService userService = UserServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         List<User> users = null;
         try {
-            users = dbService.getUsers();
-        } catch (DBException e) {
+            users = userService.getUsers();
+        } catch (UserException e) {
             e.printStackTrace();
         }
 

@@ -1,7 +1,8 @@
 package app.servlets;
 
-import app.service.DBException;
-import app.service.DBService;
+import app.service.UserException;
+import app.service.UserService;
+import app.service.UserServiceImpl;
 import app.model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -15,18 +16,18 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/update", name = "updateServlet")
 public class UpdateServlet extends HttpServlet {
 
-    private DBService dbService = DBService.getInstance();
-    String id;
+    private UserService userService = UserServiceImpl.getInstance();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
         User user = null;
-        id = req.getParameter("id");
+        String id = req.getParameter("id");
         try {
-            user = dbService.getUser(Long.valueOf(id));
-        } catch (DBException e) {
+            user = userService.getUser(Long.valueOf(id));
+        } catch (UserException e) {
             e.printStackTrace();
         }
 
@@ -39,6 +40,7 @@ public class UpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
+        String id = req.getParameter("id");
         String login = req.getParameter("login");
         String pass = req.getParameter("password");
 
@@ -48,8 +50,8 @@ public class UpdateServlet extends HttpServlet {
         }
 
         try {
-            dbService.updateUser(id,name,login,pass);
-        } catch (DBException e) {
+            userService.updateUser(id,name,login,pass);
+        } catch (UserException e) {
             e.printStackTrace();
         }
 

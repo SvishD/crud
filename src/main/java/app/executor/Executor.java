@@ -1,5 +1,7 @@
 package app.executor;
 
+import app.service.UserException;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,22 +16,55 @@ public class Executor {
     }
 
     public void execUpdate(String update) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.execute(update);
-        stmt.close();
+        try {
+            connection.setAutoCommit(false);
+            Statement stmt = connection.createStatement();
+            stmt.execute(update);
+            stmt.close();
+            connection.commit();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ignore) {
+            }
+            throw new SQLException(e);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ignore) {
+            }
+        }
+
+
     }
 
     public <T> T execQuery(String query,
                            ResultHandler<T> handler)
             throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.execute(query);
-        ResultSet result = stmt.getResultSet();
-        T value = handler.handle(result);
-        result.close();
-        stmt.close();
 
-        return value;
+        try {
+            connection.setAutoCommit(false);
+            Statement stmt = connection.createStatement();
+            stmt.execute(query);
+            ResultSet result = stmt.getResultSet();
+            T value = handler.handle(result);
+            result.close();
+            stmt.close();
+            connection.commit();
+            return value;
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ignore) {
+            }
+            throw new SQLException(e);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ignore) {
+            }
+        }
+
     }
 
 }

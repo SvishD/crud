@@ -10,15 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UserDAO {
+public class UserDaoImpl implements UserDao{
 
     private Executor executor;
 
-    public UserDAO(Connection connection) {
+    public UserDaoImpl(Connection connection) {
         this.executor = new Executor(connection);
     }
 
     public User get(long id) throws SQLException {
+
+
         return executor.execQuery("select * from users where id=" + id, result -> {
             result.next();
             return new User(result.getLong(1), result.getString(2), result.getString(3), result.getString(4));

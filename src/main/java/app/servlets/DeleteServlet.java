@@ -1,17 +1,20 @@
 package app.servlets;
 
-import app.service.DBException;
-import app.service.DBService;
+import app.service.UserException;
+import app.service.UserService;
+import app.service.UserServiceImpl;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet(urlPatterns = "/del", name = "deleteServlet")
 public class DeleteServlet extends HttpServlet {
 
-    private DBService dbService = DBService.getInstance();
+    private UserService userService = UserServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -19,8 +22,8 @@ public class DeleteServlet extends HttpServlet {
         String id = req.getParameter("id");
         if(!(id == null)){
             try {
-                dbService.deleteUser(id);
-            } catch (DBException e) {
+                userService.deleteUser(id);
+            } catch (UserException e) {
                 e.printStackTrace();
             }
             resp.setContentType("text/html;charset=utf-8");

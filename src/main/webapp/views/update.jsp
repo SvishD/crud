@@ -40,7 +40,6 @@
         }
 
         .update-user .modal-title {
-            padding-bottom: 15px;
             background: #435d7d;
             color: #fff;
             padding: 16px 30px;
@@ -83,6 +82,7 @@
 
                             <div class="modal-body">
                                 <div class="form-group">
+                                    <input type="hidden" name="id" value="<c:out value="${param.id}"/>">
                                     <label>Name</label>
                                     <input type="text" name="name" class="form-control" value="<c:out value="${user.name}"/>" required>
                                 </div>
