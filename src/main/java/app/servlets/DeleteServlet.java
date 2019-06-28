@@ -1,6 +1,6 @@
 package app.servlets;
 
-import app.service.UserException;
+import app.exceptions.UserException;
 import app.service.UserService;
 import app.service.UserServiceImpl;
 

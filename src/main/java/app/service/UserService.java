@@ -1,5 +1,6 @@
 package app.service;
 
+import app.exceptions.UserException;
 import app.model.User;
 
 import java.util.List;

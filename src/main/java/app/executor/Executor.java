@@ -1,7 +1,5 @@
 package app.executor;
 
-import app.service.UserException;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

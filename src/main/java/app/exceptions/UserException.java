@@ -1,4 +1,4 @@
-package app.service;
+package app.exceptions;
 
 
 public class UserException extends Exception {
