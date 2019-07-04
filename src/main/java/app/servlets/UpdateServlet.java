@@ -26,7 +26,7 @@ public class UpdateServlet extends HttpServlet {
         User user = null;
         String id = req.getParameter("id");
         try {
-            user = userService.getUser(Long.valueOf(id));
+            user = userService.get(Long.valueOf(id));
         } catch (UserException e) {
             e.printStackTrace();
         }
@@ -50,7 +50,7 @@ public class UpdateServlet extends HttpServlet {
         }
 
         try {
-            userService.updateUser(id,name,login,pass);
+            userService.updateUser(new User(Long.valueOf(id),name,login,pass));
         } catch (UserException e) {
             e.printStackTrace();
         }

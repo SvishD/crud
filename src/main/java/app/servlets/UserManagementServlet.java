@@ -24,7 +24,7 @@ public class UserManagementServlet extends HttpServlet {
 
         List<User> users = null;
         try {
-            users = userService.getUsers();
+            users = userService.getAllUsers();
         } catch (UserException e) {
             e.printStackTrace();
         }

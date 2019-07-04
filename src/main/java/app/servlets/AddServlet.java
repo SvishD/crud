@@ -1,6 +1,7 @@
 package app.servlets;
 
 import app.exceptions.UserException;
+import app.model.User;
 import app.service.UserService;
 import app.service.UserServiceImpl;
 
@@ -28,7 +29,7 @@ public class AddServlet extends HttpServlet {
         }
 
         try {
-            userService.addUser(name,login,pass);
+            userService.addUser(new User(name,login,pass));
         } catch (UserException e) {
             e.printStackTrace();
         }

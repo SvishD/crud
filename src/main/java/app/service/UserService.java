@@ -8,15 +8,15 @@ import java.util.List;
 public interface UserService {
 
 
-    public User getUser(long id) throws UserException;
+    public User get(long id) throws UserException;
 
-    public List<User> getUsers() throws UserException;
+    public List<User> getAllUsers() throws UserException;
 
-    public void deleteUser(String id) throws UserException;
+    public void addUser(User user) throws UserException;
 
-    public void addUser(String name, String login, String password) throws UserException;
+    public void deleteUser(User user) throws UserException;
 
-    public void updateUser(String id, String name, String login, String password) throws UserException;
+    public void updateUser(User user) throws UserException;
 
 
 }

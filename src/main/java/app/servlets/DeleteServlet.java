@@ -22,7 +22,7 @@ public class DeleteServlet extends HttpServlet {
         String id = req.getParameter("id");
         if(!(id == null)){
             try {
-                userService.deleteUser(id);
+                userService.deleteUser(userService.get(Long.valueOf(id)));
             } catch (UserException e) {
                 e.printStackTrace();
             }

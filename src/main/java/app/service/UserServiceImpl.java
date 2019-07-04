@@ -28,45 +28,45 @@ public class UserServiceImpl implements UserService {
         return instance;
     }
 
-    public User getUser(long id) throws UserException {
+    public User get(long id) throws UserException {
         try {
             return dao.get(id);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new UserException(e);
         }
     }
 
-    public List<User> getUsers() throws UserException {
+    public List<User> getAllUsers() throws UserException {
         try {
             return dao.getAllUsers();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new UserException(e);
         }
     }
 
-    public void deleteUser(String id) throws UserException {
+    public void deleteUser(User user) throws UserException {
         try {
-            dao.deleteUser(id);
-        } catch (SQLException e) {
+            dao.deleteUser(user);
+        } catch (Exception e) {
             throw new UserException(e);
         }
     }
 
 
-    public void addUser(String name, String login, String password) throws UserException {
+    public void addUser(User user) throws UserException {
         try {
             if(createNewTable) {dao.createTable();}
-            dao.insertUser(name,login,password);
-        } catch (SQLException e) {
+            dao.insertUser(user);
+        } catch (Exception e) {
             throw new UserException(e);
         }
     }
 
 
-    public void updateUser(String id, String name, String login, String password) throws UserException {
+    public void updateUser(User user) throws UserException {
         try {
-            dao.updateUser(id,name,login,password);
-        } catch (SQLException e) {
+            dao.updateUser(user);
+        } catch (Exception e) {
             throw new UserException(e);
         }
     }

@@ -18,48 +18,76 @@ public class UserDaoImpl implements UserDao{
         this.executor = new Executor(connection);
     }
 
-    public User get(long id) throws SQLException {
+    public User get(long id) {
 
-
-        return executor.execQuery("select * from users where id=" + id, result -> {
-            result.next();
-            return new User(result.getLong(1), result.getString(2), result.getString(3), result.getString(4));
-        });
+        User user = null;
+        try {
+            user = executor.execQuery("select * from users where id=" + id, result -> {
+                result.next();
+                return new User(result.getLong(1), result.getString(2), result.getString(3), result.getString(4));
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
-    public List<User> getAllUsers() throws SQLException {
+    public List<User> getAllUsers() {
 
-       return executor.execQuery("select * from users", result -> {
-           List<User> users = new ArrayList<>();
-           while(result.next()){
-                User user = new User(result.getLong(1), result.getString(2), result.getString(3), result.getString(4));
-                users.add(user);
-            }
-           return users;
-        });
+        List<User> users = null;
 
-    }
+        try {
+            users = executor.execQuery("select * from users", result -> {
+               List<User> userList = new ArrayList<>();
+               while(result.next()){
+                    User user = new User(result.getLong(1), result.getString(2), result.getString(3), result.getString(4));
+                    userList.add(user);
+                }
+               return userList;
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
 
-
-    public void insertUser(String name, String login, String password) throws SQLException {
-        executor.execUpdate("insert into users (user_name,login,password) values ('" + name + "','"+ login +"','"+ password +"')");
-    }
-
-    public void deleteUser(String id) throws SQLException {
-        executor.execUpdate("delete from users where id=" + id);
-    }
-
-    public void updateUser(String id, String name, String login, String password) throws SQLException {
-        executor.execUpdate("update users" +
-                " set user_name='"+ name +
-                "', login='"+ login +
-                "', password='"+ password +
-                "' where id="+ id);
     }
 
 
-    public void createTable() throws SQLException {
-        executor.execUpdate("create table if not exists users (id bigint auto_increment, user_name varchar(256), login varchar(256), password varchar(256), primary key (id))");
+    public void insertUser(User user) {
+        try {
+            executor.execUpdate("insert into users (user_name,login,password) values ('" + user.getName() + "','"+ user.getLogin() +"','"+ user.getPassword() +"')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteUser(User user)  {
+        try {
+            executor.execUpdate("delete from users where id=" + user.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateUser(User user) {
+        try {
+            executor.execUpdate("update users" +
+                    " set user_name='"+ user.getName() +
+                    "', login='"+ user.getLogin() +
+                    "', password='"+ user.getPassword() +
+                    "' where id="+ user.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void createTable() {
+        try {
+            executor.execUpdate("create table if not exists users (id bigint auto_increment, user_name varchar(256), login varchar(256), password varchar(256), primary key (id))");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
